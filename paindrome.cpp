@@ -40,6 +40,16 @@ int main(int argc, char **argv){
 	s.erase(remove(s.begin(), s.end(), ':'), s.end());
 	s.erase(remove(s.begin(), s.end(), '\?'), s.end());
 	s.erase(remove(s.begin(), s.end(), '!'), s.end());
+	s.erase(remove(s.begin(), s.end(), '0'), s.end());
+	s.erase(remove(s.begin(), s.end(), '1'), s.end());
+	s.erase(remove(s.begin(), s.end(), '2'), s.end());
+	s.erase(remove(s.begin(), s.end(), '3'), s.end());
+	s.erase(remove(s.begin(), s.end(), '4'), s.end());
+	s.erase(remove(s.begin(), s.end(), '5'), s.end());
+	s.erase(remove(s.begin(), s.end(), '6'), s.end());
+	s.erase(remove(s.begin(), s.end(), '7'), s.end());
+	s.erase(remove(s.begin(), s.end(), '8'), s.end());
+	s.erase(remove(s.begin(), s.end(), '9'), s.end());
 
 	cout << "s: " << s << endl;
 
