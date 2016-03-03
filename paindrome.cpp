@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include <cstdio>
+#include <cstdlib>
 using namespace std;
 
 bool palindrome_check(string t, int size){
@@ -31,9 +32,7 @@ int main(int argc, char **argv){
 	size = s.size();
 
 	if (palindrome_check(s, size)){
-		printf("Size of largest substring palindrome %d\nPalindrome= %s", size, s); 
+		printf("Size of largest substring palindrome %d\nPalindrome= %s\n", size, s.c_str()); 
 		return 0;
 	}
-	
-
 }
