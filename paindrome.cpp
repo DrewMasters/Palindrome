@@ -2,6 +2,7 @@
 #include <string>
 #include <cstdio>
 #include <cstdlib>
+#include <algorithm>
 using namespace std;
 
 bool palindrome_check(string t, int size){
@@ -17,17 +18,30 @@ bool palindrome_check(string t, int size){
 	return true;
 }
 
+void palindrome_substring(string t, int size){
+	
+	return;
+}
+
 int main(int argc, char **argv){
 	string s;
 	int size;
 	int *cache;
-	
-	if (argc > 2){
-		cout << "Usage: ./palindrome [string]\n";
-		exit(1);
-	}
 
-	s = argv[1];
+	cin >> s;
+
+	cout << "s: " << s << endl;
+	s.erase(remove(s.begin(), s.end(), ' '), s.end());
+	s.erase(remove(s.begin(), s.end(), ','), s.end());
+	s.erase(remove(s.begin(), s.end(), '.'), s.end());
+	s.erase(remove(s.begin(), s.end(), '\''), s.end());
+	s.erase(remove(s.begin(), s.end(), '\"'), s.end());
+	s.erase(remove(s.begin(), s.end(), ';'), s.end());
+	s.erase(remove(s.begin(), s.end(), ':'), s.end());
+	s.erase(remove(s.begin(), s.end(), '\?'), s.end());
+	s.erase(remove(s.begin(), s.end(), '!'), s.end());
+
+	cout << "s: " << s << endl;
 
 	size = s.size();
 
@@ -35,4 +49,6 @@ int main(int argc, char **argv){
 		printf("Size of largest substring palindrome %d\nPalindrome= %s\n", size, s.c_str()); 
 		return 0;
 	}
+	else palindrome_substring(s,size);
+	return 0;
 }
