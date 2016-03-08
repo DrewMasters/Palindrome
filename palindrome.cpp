@@ -18,8 +18,44 @@ bool palindrome_check(string t, int size){
 	return true;
 }
 
+/*
+ * Following two functions come from http://www.geeksforgeeks.org/dynamic-programming-set-12-longest-palindromic-subsequence/
+ */ 
+int max (int x, int y) {return (x>y)?x:y;}
 void palindrome_substring(string t, int size){
+	int i, j, offset;
+	int table[size][size];
+
+	for (i=0; i<size; i++) {
+		for(j=0; j<size; j++) {
+			table[i][j]=0;
+		}
+	}
+
+	for (i=0; i<size; i++) table[i][i]=1;
+
+	for (offset=2; offset<=size; offset++){
+		for (i=0; i<size-offset+1; i++){
+			j=i+offset-1;
+			if(t[i]==t[j] && offset == 2) table[i][j] =2;
+			else if (t[i] == t[j]) table[i][j] = table[i+1][j-1] + 2;
+			else table[i][j] = max(table[i][j-1], table[i+1][j]);
+		}
+	}
 	
+	cout << "Max subsequence length: " << table[0][size-1] << endl;
+
+	cout << endl << " ";
+	for (i=0; i<size; i++) cout << i << " ";
+	cout << endl;
+	for (i=0; i<size; i++){
+		cout << i << " ";
+		for (j=0; j<size; j++){
+			cout << table[i][j] << " ";
+		}
+		cout << endl;
+	}
+
 	return;
 }
 
