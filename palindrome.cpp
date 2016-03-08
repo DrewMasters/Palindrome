@@ -3,6 +3,7 @@
 #include <cstdio>
 #include <cstdlib>
 #include <algorithm>
+#include <ctime>
 using namespace std;
 
 bool palindrome_check(string t, int size){
@@ -45,7 +46,7 @@ void palindrome_substring(string t, int size){
 	
 	cout << "Max subsequence length: " << table[0][size-1] << endl;
 
-	cout << endl << " ";
+	/*cout << endl << " ";
 	for (i=0; i<size; i++) cout << i << " ";
 	cout << endl;
 	for (i=0; i<size; i++){
@@ -54,7 +55,7 @@ void palindrome_substring(string t, int size){
 			cout << table[i][j] << " ";
 		}
 		cout << endl;
-	}
+	}*/
 
 	return;
 }
@@ -63,6 +64,8 @@ int main(int argc, char **argv){
 	string s;
 	int size;
 	int *cache;
+	clock_t t1;
+	clock_t t2;
 
 	cin >> s;
 
@@ -86,15 +89,29 @@ int main(int argc, char **argv){
 	s.erase(remove(s.begin(), s.end(), '7'), s.end());
 	s.erase(remove(s.begin(), s.end(), '8'), s.end());
 	s.erase(remove(s.begin(), s.end(), '9'), s.end());
+	s.erase(remove(s.begin(), s.end(), '/'), s.end());
+	s.erase(remove(s.begin(), s.end(), '+'), s.end());
 
+	transform(s.begin(), s.end(), s.begin(), ::tolower);
 	cout << "s: " << s << endl;
 
 	size = s.size();
-
+	
+	t1 = clock();
 	if (palindrome_check(s, size)){
 		printf("Size of largest substring palindrome %d\nPalindrome= %s\n", size, s.c_str()); 
-		return 0;
+		//return 0;
 	}
-	else palindrome_substring(s,size);
+	else {
+		t2 = clock();
+		palindrome_substring(s,size);
+		t2 = clock() - t2;
+		printf("Took %f seconds to find the longest palindromic subsequence\n", (float)t2/CLOCKS_PER_SEC);
+	}
+
+	t1 = clock() - t1;
+	//cout << "t1: " << t1 << endl << "t1 in seconds: " << (float)t1/CLOCKS_PER_SEC << endl;
+	printf("Took %f seconds for program to run\n",((float)t1)/CLOCKS_PER_SEC);
+	
 	return 0;
 }
