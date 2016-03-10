@@ -23,11 +23,14 @@ bool palindrome_check(string t, int size){
  * Following two functions come from http://www.geeksforgeeks.org/dynamic-programming-set-12-longest-palindromic-subsequence/
  */ 
 int max (int x, int y) {return (x>y)?x:y;}
-void palindrome_substring(string t, int size){
+void palindrome_substring(string &t, int size){
 	int i, j, offset;
-	int table[size][size];
+	short **table;
+
+	table = (short**)malloc(sizeof(short*)*size);
 
 	for (i=0; i<size; i++) {
+		table[i]=(short*)malloc(sizeof(short)*size);
 		for(j=0; j<size; j++) {
 			table[i][j]=0;
 		}
@@ -46,30 +49,23 @@ void palindrome_substring(string t, int size){
 	
 	cout << "Max subsequence length: " << table[0][size-1] << endl;
 
-	/*cout << endl << " ";
-	for (i=0; i<size; i++) cout << i << " ";
-	cout << endl;
-	for (i=0; i<size; i++){
-		cout << i << " ";
-		for (j=0; j<size; j++){
-			cout << table[i][j] << " ";
-		}
-		cout << endl;
-	}*/
+	
+	for (i=0; i < size; i++) delete(table[i]);
+	delete(table);
 
 	return;
 }
 
 int main(int argc, char **argv){
-	string s;
+	string s, tmp;
 	int size;
 	int *cache;
 	clock_t t1;
-	clock_t t2;
 
-	cin >> s;
+	s="";
 
-	cout << "s: " << s << endl;
+	while (cin >> tmp) s+=tmp;
+
 	s.erase(remove(s.begin(), s.end(), ' '), s.end());
 	s.erase(remove(s.begin(), s.end(), ','), s.end());
 	s.erase(remove(s.begin(), s.end(), '.'), s.end());
@@ -93,25 +89,14 @@ int main(int argc, char **argv){
 	s.erase(remove(s.begin(), s.end(), '+'), s.end());
 
 	transform(s.begin(), s.end(), s.begin(), ::tolower);
-	cout << "s: " << s << endl;
 
 	size = s.size();
 	
 	t1 = clock();
-	if (palindrome_check(s, size)){
-		printf("Size of largest substring palindrome %d\nPalindrome= %s\n", size, s.c_str()); 
-		//return 0;
-	}
-	else {
-		t2 = clock();
-		palindrome_substring(s,size);
-		t2 = clock() - t2;
-		printf("Took %f seconds to find the longest palindromic subsequence\n", (float)t2/CLOCKS_PER_SEC);
-	}
-
+	palindrome_substring(s,size);
 	t1 = clock() - t1;
-	//cout << "t1: " << t1 << endl << "t1 in seconds: " << (float)t1/CLOCKS_PER_SEC << endl;
-	printf("Took %f seconds for program to run\n",((float)t1)/CLOCKS_PER_SEC);
-	
+
+	cout << "size: " << size << " time: " << (float)t1/CLOCKS_PER_SEC << endl;
+
 	return 0;
 }
